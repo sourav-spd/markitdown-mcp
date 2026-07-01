@@ -1,0 +1,67 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "markitdown-mcp"
+version = "1.0.0"
+authors = [
+  { name = "RAISE Team" },
+]
+description = "A production-ready MCP server for document-to-Markdown conversion using MarkItDown - supports stdio, SSE, and Streamable HTTP transports."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "mcp[cli]>=1.12.0",
+  "starlette>=0.27.0",
+  "uvicorn>=0.20.0",
+  "markitdown>=0.1.0",
+  "beautifulsoup4",
+  "requests",
+  "markdownify",
+  "magika~=0.6.1",
+  "charset-normalizer",
+  "defusedxml",
+  "httpx",
+]
+
+[project.optional-dependencies]
+all = [
+  "python-pptx",
+  "mammoth~=1.11.0",
+  "pandas",
+  "openpyxl",
+  "xlrd",
+  "lxml",
+  "pdfminer.six>=20251230",
+  "pdfplumber>=0.11.9",
+  "olefile",
+  "pydub",
+  "SpeechRecognition",
+  "youtube-transcript-api~=1.0.0",
+]
+dev = [
+  "pytest>=7.0",
+  "pytest-asyncio>=0.21.0",
+  "httpx>=0.27.0",
+]
+
+[tool.setuptools]
+py-modules = ["markitdown_server"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["tools*"]
+
+[project.scripts]
+markitdown-mcp = "markitdown_server:cli_main"
+
+[project.urls]
+Source = "https://github.com/RAISE/markitdown-mcp"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
